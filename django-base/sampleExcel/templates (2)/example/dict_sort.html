@@ -1,0 +1,22 @@
+{% extends 'example/base.html' %}
+
+{% block title %}Maybe Useful Example{% endblock %}
+
+{% block content %}
+<h2>Menu</h2>
+
+<ul>
+{% for baked_good in baked_goods %}
+    <li>${{ baked_good.price }} - {{ baked_good.name }}: {{ baked_good.desc }}: {{ baked_good.name|length }}</li>
+		<ol>
+			<li> {{ baked_good.recipe }} </li>
+		</ol>
+{% endfor %}
+</ul>
+{% endblock %}
+
+{% comment %}
+#Logic Taken From:
+#https://docs.djangoproject.com/en/3.0/ref/templates/builtins/#dictsort
+{% endcomment %}
+

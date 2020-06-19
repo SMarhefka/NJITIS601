@@ -1,7 +1,13 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\django-base",
+    "\\django-base\\charmsapp",
+    "\\django-base\\IS601",
+    "\\django-base\\sampleExcel",
+    "\\django-base\\sampleExcel\\migrations",
+    "\\django-base\\sampleExcel\\templates"
   ],
-  "SelectedNode": "\\README.md",
+  "SelectedNode": "\\django-base\\sampleExcel\\templates\\index.html",
   "PreviewInSolutionExplorer": false
 }

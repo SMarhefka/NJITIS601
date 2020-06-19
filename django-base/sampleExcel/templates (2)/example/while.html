@@ -1,0 +1,12 @@
+{% extends 'example/base.html' %}
+
+{% block title %}While Example{% endblock %}
+
+{% block content %}
+<h2>Menu</h2>
+<ul>.
+{% while baked_good.price  2.00 %}
+    <ol>${{ baked_good.price }} - {{ baked_good.name }}: {{ baked_good.desc }}</ol>
+{% endwhile %}
+</ul>
+{% endblock %}
