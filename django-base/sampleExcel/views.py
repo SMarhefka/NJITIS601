@@ -1,11 +1,13 @@
-from django.shortcuts import render
 from django.http import HttpResponse
-from openpyxl import *
+from django.shortcuts import render
+import openpyxl
 
-# Create your views here.
 def index(request):
+    return HttpResponse("This is currently the index or the landing page!");
+
+def upload(request):
     if "GET" == request.method:
-        return render(request, 'sampleExcel/index.html', {})
+        return render(request, 'sampleExcel/upload.html', {})
     else:
         excel_file = request.FILES["excel_file"]
 
@@ -13,9 +15,20 @@ def index(request):
 
         wb = openpyxl.load_workbook(excel_file)
 
-        # getting a particular sheet by name out of many sheets
+        # getting all sheets
+        sheets = wb.sheetnames
+        print(sheets)
+
+        # getting a particular sheet
         worksheet = wb["Sheet1"]
         print(worksheet)
+
+        # getting active sheet
+        active_sheet = wb.active
+        print(active_sheet)
+
+        # reading a cell
+        print(worksheet["A1"].value)
 
         excel_data = list()
         # iterating over the rows and
@@ -24,6 +37,7 @@ def index(request):
             row_data = list()
             for cell in row:
                 row_data.append(str(cell.value))
+                print(cell.value)
             excel_data.append(row_data)
 
-        return render(request, 'myapp/index.html', {"excel_data":excel_data})
+        return render(request, 'sampleExcel/upload.html', {"excel_data":excel_data})

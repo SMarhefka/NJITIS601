@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'sampleExcel.apps.SampleexcelConfig',
+    'charmsapp.apps.CharmsappConfig',
+    #'sampleExcel.apps.SampleexcelConfig', #--> works but not needed at this point
     ]
 
 MIDDLEWARE = [
