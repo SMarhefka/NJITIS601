@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'charmsapp.apps.CharmsappConfig',
     #'sampleExcel.apps.SampleexcelConfig', #--> works but not needed at this point
+    'import_export',
     ]
 
 MIDDLEWARE = [

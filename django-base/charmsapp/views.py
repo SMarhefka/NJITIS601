@@ -3,12 +3,18 @@ from django.http import HttpResponse
 
 import openpyxl
 
+from django.contrib import messages
+from .resources import SampleDataResource
+from tablib import Dataset
+from .models import SampleData
+
 # Create your views here.
 # Creating an index view...this is the initial view when 
 # the user types in localhost:8000/charmsapp/
 # This view will be where the excel file is uploaded
 def index(request):
-    return HttpResponse("I am in the index view");
+    if "GET" == request.method:
+        return render(request, 'charmsapp/index.html', {})
 
 # This is the upload view
 # # the user types in localhost:8000/charmsapp/upload
@@ -16,35 +22,59 @@ def upload(request):
     if "GET" == request.method:
         return render(request, 'charmsapp/upload.html', {})
     else:
+        sample_resource = SampleDataResource()
+        dataset = Dataset()
+
+        excel_file = ""
         excel_file = request.FILES["excel_file"]
 
-        # you may put validations here to check extension or file size
+        #error check to make sure the file is an excel file
+        if not excel_file.name.endswith('xlsx'):
+            messages.info(request, 'File has the wrong format, must be an xlsx file!')
+            return render(request, 'charmsapp/upload.html', {})
 
+        # Loads an excel file
+        imported_data = dataset.load(excel_file.read(), format='xlsx')
+        #print (imported_data)
+        count=0
+        for data in imported_data:
+        	print(data[1])
+        	value = SampleData(
+                first_name = data[0],
+                last_name = data[1],
+                email = data[2],
+                fav_number = data[3]
+        		)
+        	value.save()  
+
+        """
+        # you may put validations here to check extension or file size
         wb = openpyxl.load_workbook(excel_file)
 
         # getting all sheets
         sheets = wb.sheetnames
-        print(sheets)
+        #print(sheets)
 
         # getting a particular sheet
         worksheet = wb["Sheet1"]
-        print(worksheet)
+        #print(worksheet)
 
         # getting active sheet
         active_sheet = wb.active
-        print(active_sheet)
+        #print(active_sheet)
 
         # reading a cell
-        print(worksheet["A1"].value)
+        #print(worksheet["A2"].value)
 
         excel_data = list()
         # iterating over the rows and
         # getting value from each cell in row
-        for row in worksheet.iter_rows():
-            row_data = list()
-            for cell in row:
-                row_data.append(str(cell.value))
-                print(cell.value)
-            excel_data.append(row_data)
+        #for row in worksheet.iter_rows():
+        #    row_data = list()
+        #    for cell in row:
+        #        row_data.append(str(cell.value))
+        #        print(cell.value)
+        #    excel_data.append(row_data)
+        """
 
-        return render(request, 'charmsapp/upload.html', {"excel_data":excel_data})
+        return render(request, 'charmsapp/upload.html', {"excel_data":imported_data})

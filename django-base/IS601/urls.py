@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('charmsapp/', include('charmsapp.urls')),
     #path('sampleExcel/', include('sampleExcel.urls')), #--> works but is not needed anymore
-    path('admin/', admin.site.urls),
 ]
