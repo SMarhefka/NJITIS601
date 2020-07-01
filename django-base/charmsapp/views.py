@@ -28,7 +28,7 @@ def upload(request):
         excel_file = ""
         excel_file = request.FILES["excel_file"]
 
-        #error check to make sure the file is an excel file
+        # error check to make sure the file is an excel file
         if not excel_file.name.endswith('xlsx'):
             messages.info(request, 'File has the wrong format, must be an xlsx file!')
             return render(request, 'charmsapp/upload.html', {})
@@ -38,12 +38,13 @@ def upload(request):
         #print (imported_data)
         count=0
         for data in imported_data:
-        	print(data[1])
+        	# print(data[1])
         	value = SampleData(
                 first_name = data[0],
                 last_name = data[1],
                 email = data[2],
-                fav_number = data[3]
+                fav_number = data[3],
+                sample_date = data[4],
         		)
         	value.save()  
 

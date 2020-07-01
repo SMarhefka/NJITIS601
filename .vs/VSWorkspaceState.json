@@ -3,11 +3,10 @@
     "",
     "\\django-base",
     "\\django-base\\charmsapp",
-    "\\django-base\\IS601",
-    "\\django-base\\sampleExcel",
-    "\\django-base\\sampleExcel\\migrations",
-    "\\django-base\\sampleExcel\\templates"
+    "\\django-base\\charmsapp\\templates",
+    "\\django-base\\charmsapp\\templates\\charmsapp",
+    "\\django-base\\IS601"
   ],
-  "SelectedNode": "\\django-base\\sampleExcel\\templates\\index.html",
+  "SelectedNode": "\\django-base\\charmsapp\\templates",
   "PreviewInSolutionExplorer": false
 }
