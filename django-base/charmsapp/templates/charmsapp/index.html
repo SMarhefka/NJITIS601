@@ -23,7 +23,8 @@
 
         <h3>Welcome to the Charms Web Application!</h3>
         <p>Please Select an option:</p>
-        <a class="btn btn-primary" href="upload" role="button">Upload</a>
+        {# <a class="btn btn-primary" href="upload" role="button">Upload</a> #} {# THIS IS A COMMENT #}
+        <a class="btn btn-primary" href={% url 'charmsapp:upload' %} role="button">Upload</a>
         {# ToDo: Remeber to put a url here #}
         <a class="btn btn-primary" href="#" role="button">View Charms Data</a>
         <hr>

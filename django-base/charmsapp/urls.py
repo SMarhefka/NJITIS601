@@ -18,8 +18,6 @@ from . import views
 
 app_name = 'charmsapp'
 
-
-
 urlpatterns = [
     path('', views.index, name='index'),
     path('upload', views.upload, name='upload'),

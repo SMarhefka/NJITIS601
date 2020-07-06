@@ -18,6 +18,6 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('charmsapp/', include('charmsapp.urls')),
-    #path('sampleExcel/', include('sampleExcel.urls')), #--> works but is not needed anymore
+    #path('sampleExcel/', include('sampleExcel.urls', namespace='sampleExcel')), #--> works but is not needed anymore
+    path('charmsapp/', include('charmsapp.urls', namespace='charmsapp')), # default landing page, this is also a catchall
 ]

@@ -3,10 +3,14 @@
     "",
     "\\django-base",
     "\\django-base\\charmsapp",
-    "\\django-base\\charmsapp\\templates",
-    "\\django-base\\charmsapp\\templates\\charmsapp",
-    "\\django-base\\IS601"
+    "\\django-base\\charmsapp\\migrations",
+    "\\django-base\\charmsapp\\xlsx_files",
+    "\\django-base\\IS601",
+    "\\django-base\\sampleExcel",
+    "\\django-base\\sampleExcel\\migrations",
+    "\\django-base\\sampleExcel\\templates",
+    "\\django-base\\sampleExcel\\templates\\sampleExcel"
   ],
-  "SelectedNode": "\\django-base\\charmsapp\\templates",
+  "SelectedNode": "\\django-base\\charmsapp\\views.py",
   "PreviewInSolutionExplorer": false
 }
