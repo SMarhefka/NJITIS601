@@ -19,5 +19,5 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     #path('sampleExcel/', include('sampleExcel.urls', namespace='sampleExcel')), #--> works but is not needed anymore
-    path('charmsapp/', include('charmsapp.urls', namespace='charmsapp')), # default landing page, this is also a catchall
+    path('charmsapp/', include('charmsapp.urls', namespace='charmsProject')), # default landing page, this is also a catchall
 ]

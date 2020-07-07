@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from django_tables2 import RequestConfig
 import openpyxl
 
 from django.contrib import messages
+from django.urls import reverse
 from .resources import SampleDataResource
 from tablib import Dataset
 from .models import SampleData
+from .tables import SampleDataTable
 
 # Create your views here.
 # Creating an index view...this is the initial view when 
@@ -15,6 +17,7 @@ from .models import SampleData
 def index(request):
     if "GET" == request.method:
         return render(request, 'charmsapp/index.html', {})
+        
 
 # This is the upload view
 # # the user types in localhost:8000/charmsapp/upload
@@ -77,5 +80,16 @@ def upload(request):
         #        print(cell.value)
         #    excel_data.append(row_data)
         """
-
         return render(request, 'charmsapp/upload.html', {"excel_data":imported_data})
+
+def view_data(request):
+    if "GET" == request.method:
+        # return HttpResponse("GET REQUEST: This is the view/review page");
+        sample_data = SampleDataTable(SampleData.objects.all())
+        RequestConfig(request).configure(sample_data)
+        # sample_data = SampleData.objects.all()
+        return render(request, "charmsapp/review.html", {
+            'test_data':sample_data
+        })
+    else:
+        return HttpResponse("POST REQUEST: This is the view/review page");

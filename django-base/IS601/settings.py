@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'charmsapp.apps.CharmsappConfig',
     # 'sampleExcel.apps.SampleexcelConfig', #--> works but not needed at this point
     'import_export',
+    "django_tables2"
     ]
 
 MIDDLEWARE = [

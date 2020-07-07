@@ -13,7 +13,7 @@ def index(request):
 
 def upload_1(request):
     if "GET" == request.method:
-        return render(request, reverse('admin:app_list', kwargs={'sampleExcel': 'upload'}), {})
+        return render(request, reverse('admin:app_list', kwargs={'charmsapp': 'upload'}), {})
     else:
         excel_file = request.FILES["excel_file"]
 

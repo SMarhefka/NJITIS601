@@ -1,4 +1,5 @@
-<!-- upload.html -->
+﻿{# charmsapp/templates/charmsapp/review.html #}
+{% load render_table from django_tables2 %}
 <!doctype html>
 
 <html lang="en">
@@ -8,6 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="
           sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <style type="text/css">
         .sidenav {
@@ -61,28 +64,8 @@
         <a href={% url 'charmsapp:index' %}>Home</a>
         <a href={% url 'charmsapp:upload' %}>Upload</a>
     </div>
-
-    <div>
-        <table class="table table-bordered table-dark">
-            <thead>
-                <tr>
-                    {% for header in excel_data.headers  %}
-                    <th scope="col">{{ header }}</th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in excel_data %}
-                {% if forloop.first or forloop.last %}
-                <tr>
-                    {% for cell in row %}
-                    <td scope="row"> {{ cell }} &#x2003 </td>
-                    {% endfor %}
-                </tr>
-                {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
+    <div id="content" name="content" class="main">
+        {% render_table test_data %}
     </div>
 </body>
 
