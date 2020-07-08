@@ -70,6 +70,7 @@ TEMPLATES = [
         },
     },
 ]
+TEMPLATE_NAME = "django_tables2/bootstrap4.html"
 
 WSGI_APPLICATION = 'IS601.wsgi.application'
 

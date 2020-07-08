@@ -1,5 +1,5 @@
 ﻿{# charmsapp/templates/charmsapp/review.html #}
-{% load render_table from django_tables2 %}
+{#<!--{% load render_table from django_tables2 %}-->#}
 <!doctype html>
 
 <html lang="en">
@@ -11,6 +11,8 @@
           sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
 
     <style type="text/css">
         .sidenav {
@@ -45,28 +47,87 @@
             padding: 0px 10px;
             font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
         }
-
-        .upload {
-            border: 1px solid blue;
-            padding: 5px;
-            border-radius: 2px;
-            cursor: pointer;
-        }
     </style>
     <meta charset="utf-8">
     <title>
-        CHARMS VIEW
+        CHARMS REVIEW
     </title>
 </head>
 <body>
     <div class="sidenav">
         {# <a href="/charmsapp">Home</a> #} {# Commented this out #}
-        <a href={% url 'charmsapp:index' %}>Home</a>
-        <a href={% url 'charmsapp:upload' %}>Upload</a>
+        <a href={% url 'charmsapp:index_view' %}>Home</a>
+        <a href={% url 'charmsapp:upload_view' %}>Upload</a>
     </div>
     <div id="content" name="content" class="main">
-        {% render_table test_data %}
+        {#<!--{% render_table test_data %}-->#}
+
+        <div>
+            <p>Min Number: <span><input type="text" id="min" name="min"></span></p>
+            <p>Max Number: <span><input type="text" id="max" name="max"></span></p>
+        </div>
+        <div></div>
+        <table class="table table-sm" id="example">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Favorite Number</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in test_data %}
+                <tr>
+                    <td scope="row"> {{ data.id }}</td>
+                    <td scope="row" contenteditable="true"> {{ data.first_name }} </td>
+                    <td scope="row" contenteditable="true"> {{ data.last_name }} </td>
+                    <td scope="row" contenteditable="true"> {{ data.email }} </td>
+                    <td scope="row" contenteditable="true"> {{ data.fav_number }} </td>
+                    <td scope="row" contenteditable="true"> {{ data.sample_date }} </td>
+                    <td scope="row"> Edit </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="http://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                var min = parseInt($('#min').val(), 10);
+                var max = parseInt($('#max').val(), 10);
+                var age = parseFloat(data[4]) || 0; // use data for the age column
+
+                if ((isNaN(min) && isNaN(max)) ||
+                    (isNaN(min) && age <= max) ||
+                    (min <= age && isNaN(max)) ||
+                    (min <= age && age <= max)) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
+        $(document).ready(function () {
+            var table = $('#example').DataTable();
+
+            // Event listener to the two range filtering inputs to redraw on input
+            $('#min, #max').keyup(function () {
+                table.draw();
+            });
+        });
+    </script>
+
 </body>
 
 </html>

@@ -21,7 +21,7 @@ from . import views
 app_name = 'charmsapp'
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('upload', views.upload, name='upload'),
-    path('review', views.view_data, name='review'),
+    path('charms', views.index, name='index_view'),
+    path('upload', views.upload, name='upload_view'),
+    path('review', views.view_data, name='review_view'),
 ]
