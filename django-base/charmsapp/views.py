@@ -16,7 +16,7 @@ from .tables import SampleDataTable
 # This view will be where the excel file is uploaded
 def index(request):
     if "GET" == request.method:
-        return render(request, 'charmsapp/index.html', {})
+        return render(request, 'charmsapp/index_orig.html', {})
         
 
 # This is the upload view
