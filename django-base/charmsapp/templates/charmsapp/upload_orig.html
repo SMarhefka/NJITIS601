@@ -1,0 +1,116 @@
+﻿<!-- upload.html -->
+<!doctype html>
+
+<html lang="en">
+<head>
+    {#<!-- Required meta tags -->#}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="
+          sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style type="text/css">
+        .sidenav {
+            height: 100%;
+            width: 20%;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: navy;
+            overflow-x: :hidden;
+            padding-top: 20px;
+        }
+
+            .sidenav a {
+                padding: 15px 8px 6px 16px;
+                text-decoration: none;
+                font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+                font-size: 20px;
+                color: deepskyblue;
+                display: block;
+            }
+
+                .sidenav a:hover {
+                    color: #f1f1f1;
+                }
+
+        .main {
+            margin-top: 30px;
+            margin-left: 20%;
+            margin-right: 5%;
+            padding: 0px 10px;
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        }
+
+        .upload {
+            border: 1px solid blue;
+            padding: 5px;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+    </style>
+    <meta charset="utf-8">
+    <title>
+        CHARMS UPLOAD
+    </title>
+</head>
+<body>
+    <div class="sidenav">
+        {# <a href="/charmsapp">Home</a> #} {# Commented this out #}
+        <a href={% url 'charmsapp:index_view' %}>Home</a>
+        <a href={% url 'charmsapp:review_view' %}>View Data</a>
+    </div>
+
+    <div id="content" name="content" class="main">
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert">
+            <p>
+                {{ message }} 
+            </p>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <h1>FILE UPLOAD</h1>
+        <hr />
+        <h3>Please select a Charms report to upload</h3>
+        <form action="{% url 'charmsapp:upload_view' %}" method="post" enctype="multipart/form-data">
+            {# <!--<form action='' method="post" enctype="multipart/form-data">--> #}
+            {% csrf_token %}
+            <input type="file" title="Upload excel file" name="excel_file"
+                   style="border: 1px solid black; padding: 5px;" required="required">
+            <p></p>
+            <input type="submit" value="Upload" class="upload">
+        </form>
+
+        <p></p>
+        <hr>
+        <div>
+            <table class="table table-bordered table-dark">
+                <thead>
+                    <tr>
+                        {% for header in excel_data.headers  %}
+                        <th scope="col">{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in excel_data %}
+                    {% if forloop.first or forloop.last %}
+                    <tr>
+                        {% for cell in row %}
+                        <td scope="row"> {{ cell }} &#x2003 </td>
+                        {% endfor %}
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

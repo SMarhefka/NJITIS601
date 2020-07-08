@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Base Title{% endblock %}</title>
+    {% block head_meta %}
+        {% block head_meta_charset %}
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        {% endblock head_meta_charset %}
+        {% block head_meta_contentlanguage %}
+            <meta http-equiv="Content-Language" value="en-US" />
+        {% endblock head_meta_contentlanguage %}
+        {% block head_meta_viewport %}
+            <meta name="viewport" content="width=device-width, shrink-to-fit=no">
+        {% endblock head_meta_viewport %}
+    {% endblock head_meta %}
+
+    {% block head_css %}
+        {% block head_css_site %}
+            {#<!-- Required meta tags so that boot strap can work correctly -->#}
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+            <style type="text/css">
+                .sidenav {
+                    height: 100%;
+                    width: 10%;
+                    position: fixed;
+                    z-index: 1;
+                    top: 0;
+                    left: 0;
+                    background-color: navy;
+                    overflow-x: hidden;
+                    padding-top: 20px;
+                }
+
+                    .sidenav a {
+                        margin: auto;
+                        width: 66%;
+                        padding: 10px 6px 6px 10px;
+                        text-decoration: none;
+                        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+                        font-size: 20px;
+                        color: deepskyblue;
+                        display: block;
+                    }
+
+                        .sidenav a:hover {
+                            color: #f1f1f1;
+                        }
+
+                .main {
+                    margin-top: 30px;
+                    margin-left: 15%;
+                    margin-right: 5%;
+                    padding: 0px 10px;
+                    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+                }
+        </style>
+        {% endblock head_css_site %}
+
+        {% block head_css_section %}{% endblock head_css_section %}
+        {% block head_css_page %}{% endblock head_css_page %}
+    {% endblock head_css %}
+</head>
+<body>
+    <div class="sidenav">
+        {% block side_navigation %}
+        {% endblock side_navigation %}
+    </div>
+    <div id="content" name="content" class="main">
+        {% block main_content %}
+        if you see this, something is wrong!
+        {% endblock main_content %}
+    </div>
+</body>
+    {# Set of blocks that can be used to display JavaScript files #}
+    {% block footer_javascript %}
+        {% block footer_javascript_site %}
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+        {% endblock footer_javascript_site %}
+        {% block footer_javascript_section %}{% endblock footer_javascript_section %}
+        {% block footer_javascript_page %}{% endblock footer_javascript_page %}
+    {% endblock footer_javascript %}
+</html>
