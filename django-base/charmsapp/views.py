@@ -85,9 +85,9 @@ def upload(request):
 def view_data(request):
     if "GET" == request.method:
         # return HttpResponse("GET REQUEST: This is the view/review page");
-        sample_data = SampleDataTable(SampleData.objects.all())
-        RequestConfig(request).configure(sample_data)
-        # sample_data = SampleData.objects.all()
+        #sample_data = SampleDataTable(SampleData.objects.all())
+        #RequestConfig(request).configure(sample_data)
+        sample_data = SampleData.objects.all()
         return render(request, "charmsapp/review.html", {
             'test_data':sample_data
         })
