@@ -1,9 +1,11 @@
-{# charmsapp/templates/charmsapp/review.html #}
 {% extends 'charmsapp/base.html' %}
+{% comment %}
+{# charmsapp/templates/charmsapp/review.html #}
 {#<!--{% load render_table from django_tables2 %}-->#}
+{% endcomment %}
 
 {% block custom_css %}
-{#<!-- Add the DataTables CSS (just for review.html) -->#}
+<!-- Add the DataTables CSS (just for review.html) -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
 {% endblock custom_css %}
 
@@ -20,19 +22,11 @@ CHARMS REVIEW
 <h1>DATA REVIEW</h1>
 <hr />
 {#<!--{% render_table test_data %}-->#}
-<div id="data-filters">
-    <p>
-        Min Number: <span><input type="text" id="min" name="min"></span>
-        Max Number: <span><input type="text" id="max" name="max"></span>
-    </p>
+<div>
+    <p>Min Number: <span><input type="text" id="min" name="min"></span></p>
+    <p>Max Number: <span><input type="text" id="max" name="max"></span></p>
 </div>
-<div id="button-group">
-    <p>
-        Table Options: 
-        <input type="button" class="add-row" value="Add Row">
-        <input type="button" class="delete-row" value="Delete Row">
-    </p>
-</div>
+<div></div>
 <table class="table table-sm" id="example">
     <thead>
         <tr>
@@ -44,25 +38,24 @@ CHARMS REVIEW
             <th scope="col">E-mail</th>
             <th scope="col">Favorite Number</th>
             <th scope="col">Date</th>
-            <th scope="col">Action</th>
             -->
             {% endcomment %}
-            <th scope="col"></th>
             {% for header in headers %}
-            <th scope="col"> {{header}} </th>
+            <th scope="col"> {{ header }} </th>
             {% endfor %}
+            <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
         {% for data in test_data %}
         <tr>
-            <td scope="row"><input type="checkbox" name="record" data-id="{{ data.id }}"></td>
-            <td scope="row">{{data.id}}</td>
-            <td scope="row" class="editable" data-id="{{ data.id }}" data-type="first_name"> {{ data.first_name }} </td>
-            <td scope="row" class="editable" data-id="{{ data.id }}" data-type="last_name"> {{ data.last_name }} </td>
-            <td scope="row" class="editable" data-id="{{ data.id }}" data-type="email"> {{ data.email }} </td>
-            <td scope="row" class="editable" data-id="{{ data.id }}" data-type="fav_number"> {{ data.fav_number }} </td>
-            <td scope="row" class="editable" data-id="{{ data.id }}" data-type="sample_date"> {{ data.sample_date }} </td>
+            <td scope="row"> {{ data.id }}</td>
+            <td scope="row" class="editable" id="{{ data.id }}" data-type="first_name"> {{ data.first_name }} </td>
+            <td scope="row" class="editable" id="{{ data.id }}" data-type="last_name"> {{ data.last_name }} </td>
+            <td scope="row" class="editable" id="{{ data.id }}" data-type="email"> {{ data.email }} </td>
+            <td scope="row" class="editable" id="{{ data.id }}" data-type="fav_number"> {{ data.fav_number }} </td>
+            <td scope="row" class="editable" id="{{ data.id }}" data-type="sample_date"> {{ data.sample_date }} </td>
+            <td><a href="/delete_data/{{data.id}}" class="btn btn-danger">Delete</a><br><a class="btn btn-success" href="/update_data/{{data.id}}">Update</a></td>
             {% comment %}
             <!--
             <td scope="row"> {{ data.id }}</td>
@@ -72,9 +65,6 @@ CHARMS REVIEW
             <td scope="row" class="editable" id="{{ data.id }}" type="fav_number"> {{ data.fav_number }} </td>
             <td scope="row" class="editable" id="{{ data.id }}" type="sample_date"> {{ data.sample_date }} </td>
             <td><a href="/delete_data/{{data.id}}" class="btn btn-danger">Delete</a><br><a class="btn btn-success" href="/update_data/{{data.id}}">Update</a></td>
-            
-            <td class="btn btn-danger" onclick="remove_data( {{ data.id }} )"> Delete </td>
-
             -->
             <td scope="row"> Edit </td>
             {% endcomment %}
@@ -105,18 +95,7 @@ CHARMS REVIEW
     );
 
     $(document).ready(function () {
-        var table = $('#example').DataTable(
-            {
-                "order": [], //Initial no order.
-                //Set column definition initialisation properties.
-                "columnDefs": [
-                    {
-                        "targets": [0], //first column / numbering column
-                        "orderable": false, //set not orderable
-                    },
-                ],
-            },
-        );
+        var table = $('#example').DataTable();
         // Event listener to the two range filtering inputs to redraw on input
         $('#min, #max').keyup(function () {
             table.draw();
@@ -126,7 +105,7 @@ CHARMS REVIEW
             var value = $(this).text();
             var data_type = $(this).data("type");
             var input_type = "text";
-            if (data_type == "sample_date") {
+            if (data_type == "created_at") {
                 input_type = "datetime-local";
             }
             var input = "<input type='" + input_type + "' class='input-data' value='" + value + "' class='form-control'>";
@@ -144,47 +123,20 @@ CHARMS REVIEW
             sendToServer(td.data("id"), value, type);
         });
 
-        // JavaScript that is triggered when the enter button is pressed
         $(document).on("keypress", ".input-data", function (e) {
             var key = e.which;
+            // If you press the enter key
             if (key == 13) {
-                e.preventDefault();
                 var value = $(this).val();
                 var td = $(this).parent("td");
                 $(this).remove();
                 td.html(value);
                 td.addClass("editable");
                 var type = td.data("type");
-                console.log(td.data("id"));
+                // prevent page from refreshing
+                e.preventDefault();
                 sendToServer(td.data("id"), value, type);
             }
-        });
-        
-        // Add a new row to the data
-        $(".add-row").click(function () {
-            var first_name = $("#first_name").val();
-            var last_name = $("#last_name").val();
-            var email = $("#email").val();
-            var fav_number = $("#email").val();
-            var sample_date = $("#sample_date").val();
-            var markup = "<tr> <td><input type='checkbox' name='record'></td><td>" + name + "</td><td>" + email + "</td></tr>";
-            $("table tbody").append(markup);
-        });
-
-        // Find and remove selected table rows
-        $(".delete-row").click(function () {
-            $("table tbody").find('input[name="record"]').each(function () {
-                if ($(this).is(":checked")) {
-                    console.log($(this).data("id"));
-                    if ($(this).data("id") != undefined) {
-                        remove_data($(this).data("id"));
-                        $(this).parents("tr").remove();
-                    }
-                    else {
-                        console.log("data-id is undefined");
-                    }
-                }
-            });
         });
 
         // Function to send our data to the server
@@ -194,7 +146,7 @@ CHARMS REVIEW
             console.log(type);
 
             $.ajax({
-                url: "update",
+                url: "/review",
                 type: "POST",
                 data: { id: id, type: type, value: value },
             })
@@ -206,20 +158,5 @@ CHARMS REVIEW
                 });
         }
     });
-
-    function remove_data(in_id) {
-        console.log(in_id);
-        $.ajax({
-            url: "delete",
-            type: "POST",
-            data: { id: in_id },
-        })
-            .done(function (response) {
-                console.log(response);
-            })
-            .fail(function () {
-                console.log("Error Occured");
-            });
-    }
 </script>
 {% endblock custom_javascript %}

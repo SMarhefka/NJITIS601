@@ -1,4 +1,4 @@
-﻿{# charmsapp/templates/charmsapp/index.html #}
+{# charmsapp/templates/charmsapp/index.html #}
 {% extends 'charmsapp/base.html' %}
 
 {% block head_css_site %}
@@ -9,6 +9,7 @@
         margin-right: 30px;
         margin-bottom: 30px;
     }
+
     .main {
         margin-top: 30px;
         margin-left: 30px;
@@ -17,18 +18,20 @@
         font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     }
 </style>
+{#<!-- Required meta tags so that boot strap can work correctly -->#}
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 {% endblock head_css_site %}
 
 {# Set the title of the view #}
 {% block title %}
-    CHARMS UPLOAD
+    CHARMS APP
 {% endblock title %}
 
 {% block main_content %}
 <h1>CHARMS Reporting</h1>
 <hr>
-<h3>Welcome to the Charms Web Application!</h3>
+<h3>Welcome to the Charms Reporting Web Application!</h3>
 <p>Please Select an option:</p>
 <a class="btn btn-primary" href={% url 'charmsapp:upload_view' %} role="button">Upload</a>
 <a class="btn btn-primary" href={% url 'charmsapp:review_view' %} role="button">View Charms Data</a>

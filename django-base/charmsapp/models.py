@@ -3,11 +3,13 @@ from django.contrib.auth import get_user_model
 from django.db import models
 
 class SampleData(models.Model):
+	id = models.AutoField(primary_key=True)
 	first_name = models.CharField(max_length=20)
 	last_name = models.CharField(max_length=20)
 	email = models.EmailField(blank=True, max_length = 254)
 	fav_number = models.IntegerField()
 	sample_date = models.DateField(null=True, blank=True)
+	#upload_file = models.FileField()
 
 """
 class CharmsDataAll(models.Model):

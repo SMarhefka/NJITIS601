@@ -23,5 +23,7 @@ app_name = 'charmsapp'
 urlpatterns = [
     path('charms', views.index, name='index_view'),
     path('upload', views.upload, name='upload_view'),
-    path('review', views.view_data, name='review_view'),
+    path('review', views.review_data, name='review_view'),
+    path('update', views.update_data, name='update_data'),
+    path('delete', views.delete_data, name='delete_data'),
 ]
