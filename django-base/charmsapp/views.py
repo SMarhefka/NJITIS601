@@ -5,6 +5,7 @@ import openpyxl
 
 from django.contrib import messages
 from django.urls import reverse
+from django.urls import resolve
 from .resources import SampleDataResource
 from tablib import Dataset
 from .models import SampleData
@@ -21,7 +22,6 @@ from django.views.decorators.csrf import csrf_exempt
 def index(request):
     if "GET" == request.method:
         return render(request, 'charmsapp/index.html', {})
-        
 
 # This is the upload view
 # # the user types in localhost:8000/charmsapp/upload
@@ -132,7 +132,6 @@ def upload(request):
 
         return render(request, 'charmsapp/upload.html', {"excel_data":imported_data})
 
-@csrf_exempt
 def review_data(request):
     if "GET" == request.method:
         # return HttpResponse("GET REQUEST: This is the view/review page");
@@ -176,9 +175,6 @@ def update_data(request):
 
         if data_type == "sample_date":
             testData.sample_date = value
-
-        print (testData.first_name)
-
         testData.save()
         return JsonResponse({"success":"Updated"})
 

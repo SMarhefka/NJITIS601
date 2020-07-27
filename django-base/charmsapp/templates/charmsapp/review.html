@@ -62,7 +62,7 @@ CHARMS REVIEW
             <td scope="row" class="editable" data-id="{{ data.id }}" data-type="last_name"> {{ data.last_name }} </td>
             <td scope="row" class="editable" data-id="{{ data.id }}" data-type="email"> {{ data.email }} </td>
             <td scope="row" class="editable" data-id="{{ data.id }}" data-type="fav_number"> {{ data.fav_number }} </td>
-            <td scope="row" class="editable" data-id="{{ data.id }}" data-type="sample_date"> {{ data.sample_date }} </td>
+            <td scope="row" class="editable" data-id="{{ data.id }}" data-type="sample_date"> {{ data.sample_date|date:"m/d/Y"}} </td>
             {% comment %}
             <!--
             <td scope="row"> {{ data.id }}</td>
@@ -127,7 +127,7 @@ CHARMS REVIEW
             var data_type = $(this).data("type");
             var input_type = "text";
             if (data_type == "sample_date") {
-                input_type = "datetime-local";
+                input_type = "date";
             }
             var input = "<input type='" + input_type + "' class='input-data' value='" + value + "' class='form-control'>";
             $(this).html(input);
